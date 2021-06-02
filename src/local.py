@@ -83,6 +83,25 @@ def weekly_forecast(lat, lon):
     for x in range(7):
         daily_forecast = (int(round(list[x]["temp"]["max"])), int(round(list[x]["temp"]["min"])), list[x]["weather"][0]["description"])
         final.append(daily_forecast)
-    print(final)
+    return final
 
-weekly_forecast(43.4711, -89.7443)
+def hourly_forecast(lat, lon):
+    """
+    Returns hourly forecast for next 12 hours
+
+    Paramaters:
+    lat - lattitude of area to search
+    lon - longitude of area to search
+
+    Returns
+    list formatted(hour1, hour2, ...) where each hour is (temp, conditions)
+    """
+    url = weather_url_call.format(lat, lon)
+    result = requests.get(url)
+    data = result.json()
+    list = data["hourly"]
+    final = []
+    for x in range(12):
+        hourly_forecast = (int(round(list[x]["temp"])), list[x]["weather"][0]["description"])
+        final.append(hourly_forecast)
+    return final

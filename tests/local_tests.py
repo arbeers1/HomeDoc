@@ -13,5 +13,21 @@ def test_temp_conditions():
     assert(result[0] > -200)
     assert(result[1] != None)
 
+def test_weekly_forecast():
+    result = local.weekly_forecast(43.4711, -89.7443)
+    assert(result[0] != None)
+    assert(result[0][0] > -200)
+    assert(result[0][1] > -200)
+    assert(result[0][2] != None)
+
+def test_hourly_forecast():
+    result = local.hourly_forecast(43.4711, -89.7443)
+    assert(result[0] != None)
+    assert(result[0][0] > -200)
+    assert(result[0][1] != None)
+
+
 #test_lat_lon()
-test_temp_conditions()
+#test_temp_conditions()
+#test_weekly_forecast()
+test_hourly_forecast()
