@@ -1,0 +1,17 @@
+import sys
+sys.path.insert(1, sys.path[0].replace("tests", "\\src", 1))
+import local as local
+
+def test_lat_lon():
+    result = local.lat_lon("baraboo")
+    assert(result[0] == 43.4711 and result[1] == -89.7443)
+    result = local.lat_lon("london")
+    assert(result[0] == 51.5085 and result[1] == -.1257)
+
+def test_temp_conditions():
+    result = local.temp_conditions("baraboo")
+    assert(result[0] > -200)
+    assert(result[1] != None)
+
+#test_lat_lon()
+test_temp_conditions()
