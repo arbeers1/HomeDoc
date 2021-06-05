@@ -1,9 +1,9 @@
 #File: Configurator.py
 #Description: Read/Write save file logic for user configurations
 #Notes: File format is .csv structured:
-#       _city,_theme,_background_type,_picture_index
+#       _city,_theme,_background_type,_picture_index,_secret
 #       where the default config is:
-#       chicago,light,picture,0
+#       chicago,light,picture,0,0
 
 import csv
 import os
@@ -19,6 +19,7 @@ class configurator:
             self._theme = "light"
             self._background_type = "picture"
             self._picture_index = 0
+            self._secret = 0
 
     def read_save(self):
         """
@@ -37,6 +38,7 @@ class configurator:
                 self._theme = list[1]
                 self._background_type = list[2]
                 self._picture_index = int(list[3])
+                self._secret = list[4]
             return True
         except FileNotFoundError:
             self.write_save(False)
@@ -59,9 +61,9 @@ class configurator:
             with open(file, 'w', newline='') as csvfile:
                 writer = csv.writer(csvfile, delimiter=',')
                 if(instance):
-                    writer.writerow([self._city, self._theme, self._background_type, self.picture_index])
+                    writer.writerow([self._city, self._theme, self._background_type, self.picture_index, self._secret])
                 else:
-                    writer.writerow(["chicago", "light", "picture", 0])
+                    writer.writerow(["chicago", "light", "picture", 0, 0])
             return True
         except FileNotFoundError:
             return False
@@ -97,3 +99,7 @@ class configurator:
     @picture_index.setter
     def picture_index(self, picture_index):
         self._picture_index = picture_index
+
+    @property
+    def secret(self):
+        return self._secret

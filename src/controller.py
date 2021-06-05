@@ -75,6 +75,7 @@ def _calculate_xy_coordinates(color):
     x = X / (X + Y + Z)
     y = Y / (X + Y + Z)
 
+    #TODO: THIS CHUNK IS NOT CORRECT
     #Corrects xy if they are out of bounds
     if(x < .167):
         x = .167
