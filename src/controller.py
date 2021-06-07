@@ -3,6 +3,100 @@
 
 import requests
 import json
+import math
+
+class Triangle():
+    """
+    Represents the color gamut triangle used by the philips hue light bulb.
+    Useful for operations involving the xy triangle.
+    """
+    _x1 = .675
+    _y1 = .322
+    _x2 = .409
+    _y2 = .518
+    _x3 = .167
+    _y3 = .04
+
+    def in_bounds(self, x, y):
+        """
+        Returns if a point is within the hue gamut color triangle
+
+        Paramaters:
+        x - the x coord
+        y - the y coord
+
+        Returns:
+        true if in triangle
+        false otherwise
+        """
+        d1 = self._sign([x,y], [self._x1, self._y1], [self._x2, self._y2])
+        d2 = self._sign([x,y], [self._x2, self._y2], [self._x3, self._y3])
+        d3 = self._sign([x,y], [self._x3, self._y3], [self._x1, self._y1])
+
+        neg = d1 < 0 or d2 < 0 or d3 < 0
+        pos = d1 > 0 or d2 > 0 or d3 > 0
+
+        return not(neg and pos)
+
+    def _sign(self, p1, p2, p3):
+        """
+        Helper method to determine sign for in_bounds
+        """
+        return (p1[0] - p3[0]) * (p2[1] - p3[1]) - (p2[0] - p3[0]) * (p1[1] - p3[1])
+
+    def getNearest(self, x, y):
+        """
+        Gets the nearest point on a triangle from the x,y coord
+
+        Paramaters:
+        x - the x coord
+        y - the y coord
+
+        Returns
+        [x,y]
+        """
+        slope_bottom = (self._y1 - self._y3) / (self._x1 - self._x3)
+        slope_left = (self._y2 - self._y3) / (self._x2 - self._x3)
+        slope_right = (self._y1 - self._y2) / (self._x1 - self._x2)
+
+        y_int1 = slope_bottom * -1 * self._x1 + self._y1
+        y_int2 = slope_left * -1 * self._x2 + self._y2
+        y_int3 = slope_right * -1 * self._x2 + self._y2
+
+        slope1_inverse = -1 / slope_bottom
+        slope2_inverse = -1 / slope_left
+        slope3_inverse = -1 / slope_right
+
+        #Find line containing inverse slope and x, y (perpendicular)
+        #y - y1 = m(x - x1)
+        y_inv1 = slope1_inverse * -1 * x + y
+        y_inv2 = slope2_inverse * -1 * x + y
+        y_inv3 = slope3_inverse * -1 * x + y
+
+        # Finds where the regular line and inverse intersect
+        # Mx + yint = INV(Mx) + yinv
+        x = (y_inv1 - y_int1) / (slope_bottom - slope1_inverse)
+        y = x * slope_bottom + y_int1
+        xy1 = [x, y]
+        x = (y_inv2 - y_int2) / (slope_left - slope2_inverse)
+        y = x * slope_left + y_int2
+        xy2 = [x, y]
+        x = (y_inv3 - y_int3) / (slope_right - slope3_inverse)
+        y = x * slope_right + y_int3
+        xy3 = [x, y]
+
+        xy = [x, y]
+        #calculate distance
+        d1 = math.dist(xy, xy1)
+        d2 = math.dist(xy, xy2)
+        d3 = math.dist(xy, xy3)
+
+        if(d1 < d2 and d1 < d3):
+            return xy1
+        elif(d2 < d1 and d2 < d3):
+            return xy2
+        else:
+            return xy3
 
 #url to access hue bridge on local network
 _base_url = "http://192.168.0.100/api/dQ8uv5kgFtCvVDdCUensB9HgujFEeXQyFb7M80Lu/lights"
@@ -52,7 +146,7 @@ def _calculate_xy_coordinates(color):
     Helper method to calculate the xy color gamut point
 
     Paramaters:
-    color - rgb tuple
+    color - rgb tuple (r, g, b)
 
     Returns:
     tuple formated(x,y)
@@ -75,15 +169,9 @@ def _calculate_xy_coordinates(color):
     x = X / (X + Y + Z)
     y = Y / (X + Y + Z)
 
-    #TODO: THIS CHUNK IS NOT CORRECT
     #Corrects xy if they are out of bounds
-    if(x < .167):
-        x = .167
-    elif(x > .675):
-        x = .675
-    if(y < .04):
-        y = .04
-    elif(y > .518):
-        y = .518
-    
-    return(x,y)
+    gamut = Triangle()
+    if(gamut.in_bounds(x, y)):
+        return [x, y]
+    else:
+        return gamut.getNearest(x, y)
