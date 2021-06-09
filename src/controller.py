@@ -102,10 +102,23 @@ class Triangle():
 _base_url = "http://192.168.0.100/api/dQ8uv5kgFtCvVDdCUensB9HgujFEeXQyFb7M80Lu/lights"
 
 def get_light_data():
-    """Returns Json data for all lights."""
+    """
+    Returns Json data for all lights.
+    
+    Returns:
+    List formatted [(light1_id, light1_name, light1_on, [r,g,b], bri), (light2_...)]
+    """
     data = requests.get(_base_url)
-    json_file = json.loads(data.text)
-    return json_file
+    js = json.loads(data.text)
+    list = []
+    for i in js:
+        id = i
+        name = js[i]["name"]
+        on = js[i]["state"]["on"]
+        rgb = xy_to_rgb(js[i]["state"]["xy"][0], js[i]["state"]["xy"][1], js[i]["state"]["bri"]) 
+        bri = js[i]["state"]["bri"]
+        list.append((id, name, on, rgb, bri))
+    return list
 
 def set_light_state(id, state):
     """
@@ -129,7 +142,7 @@ def set_light_color(self, id, color):
 
     Paramaters:
     id - Number id of a light to modify
-    color - rgb tuple
+    color - rgb list
 
     Returns:
     JSON response file
@@ -146,19 +159,19 @@ def _calculate_xy_coordinates(color):
     Helper method to calculate the xy color gamut point
 
     Paramaters:
-    color - rgb tuple (r, g, b)
+    color - rgb list [r, g, b]
 
     Returns:
-    tuple formated(x,y)
+    list formated [x,y]
     """
     #Converts rgb values to appropriate dec values
-    for val in color:
+    for i, val in enumerate(color):
         val = val / 255
         #Gamma Correction
         if(val > 0.04045):
-            val = pow((val + .055) / 1.055, 2.4)
+            color[i] = pow((val + .055) / 1.055, 2.4)
         else:
-            val /= 12.92
+            color[i] /= 12.92
     
     #Wide RGB D65 conversion
     X = color[0] * 0.649926 + color[1] * 0.103455 + color[2] * 0.197109
@@ -175,3 +188,37 @@ def _calculate_xy_coordinates(color):
         return [x, y]
     else:
         return gamut.getNearest(x, y)
+
+def xy_to_rgb(x, y, bri):
+    """
+    Converts x,y to rgb for gui use
+
+    Paramaters:
+    x - the current x of the light
+    y - the current y of the light
+    bri - the current brightness of the light
+
+    Returns:
+    [r, g, b]
+    """
+    #Init vars
+    z = 1 - x- y
+    Y = bri / 255
+    X = (Y/y) * x
+    Z = (Y/y) * z
+
+    #Wide RGB D65 conversion
+    r =  X * 1.656492 - Y * 0.354851 - Z * 0.255038
+    g = -X * 0.707196 + Y * 1.655397 + Z * 0.036152
+    b =  X * 0.051713 - Y * 0.121364 + Z * 1.011530
+    rgb = [r, g, b]
+    #Reverse gamma correction
+    for i, s in enumerate(rgb):
+        if(s <= 0.0031308):
+            s = 12.92 * s
+        else:
+            s = (1.0 + 0.055) * pow(s, (1.0 / 2.4)) - 0.055
+        s = s * 255
+        rgb[i] = math.trunc(s)
+    
+    return rgb
