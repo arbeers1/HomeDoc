@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/hue_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='themes/light_theme.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='res/favicon.ico') }}">
+    <script src="{{url_for('static', filename='scripts/light_menu.js')}}"></script>
+</head>
+<body onload="populate_buttons(4)">
+    <div class="main_container">
+        <div class = "nav_bar">
+            <button id="back" onclick = "location.href = location.href.replace('/lights', '');"></button>
+            <p id="title">Lights</p>
+        </div>
+        <div id = "button_container"></div>
+    </div>
+</body>

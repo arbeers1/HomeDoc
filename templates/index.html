@@ -1,20 +1,55 @@
 <!DOCTYPE html>
-<html>
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='light_theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/main_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='themes/light_theme.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='res/favicon.ico') }}">
-</head>
+    <style>
+        .control{
+            opacity: {{ vis }};
+        }
 
+        .control{
+            opacity: {{ vis }};
+        }
+
+        #image{
+            filter: blur({{ 3 * vis }}px);
+        }
+
+        #invisible_button{
+            pointer-events: {{ pointer }};
+        }
+    </style>
+</head>
+<script>
+    function animate_menu(opac, blur){
+       var menu = document.getElementsByClassName("menu");
+       var nav = document.getElementsByClassName("control");
+       for(var i = 0; i < menu.length; i++){
+            menu[i].style.opacity = opac;
+       }
+       for(var i = 0; i < nav.length; i++){
+           nav[i].style.opacity = opac;
+       }
+       document.getElementById("image").style.filter = "blur(" + blur + "px)";
+    }
+</script>
+<div id = "image"></div>
 <div class = "main_container">
+    <div class = "nav_bar">
+        <button class="control" onclick = "animate_menu(0, 0); document.getElementById('invisible_button').style.pointerEvents = 'auto'"></button>
+        <button class="control" id ="settings"></button>
+    </div>
     <div class = "menu_container">
-        <button class="menu" type="button">Lights</button>
-        <button class="menu" type="button">Weather</button>
-        <button class="menu" type="button">Email</button>
-        <button class="menu" type="button">Spotify</button>
+        <button class="menu" onclick="location.href = location.href + '/lights'" style="opacity: {{ vis }};"><span class="icons" id="sun"></span><br>Lights</button>
+        <button class="menu" style="opacity: {{ vis }};"><span class="icons" id="weather"></span><br>Weather</button>
+        <button class="menu" style="opacity: {{ vis }};"><span class="icons" id="email"></span><br>Email</button>
+        <button class="menu" style="opacity: {{ vis }};"><span class="icons" id="music"></span><br>Spotify</button>
     </div>
     <div class = "info_container">
         <p id = "time">12:00</p>
         <p id = "temp">73°</p>
     </div>
-</div>>
-</html>
+</div>
+<div id = "invisible_button" onclick="this.style.pointerEvents = 'none'; animate_menu(1, 3);"></div>
