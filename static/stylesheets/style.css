@@ -1,0 +1,29 @@
+@font-face{
+    font-family: "Product Sans";
+    src: url("../res/Product Sans Regular.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "holo";
+    src: url("../res/holomdl2.ttf");
+}
+
+p{
+    font-family: 'Product Sans';
+    font-size: 10vw;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+button{
+    font-family: 'Product Sans';
+    font-size: 2vw;
+    border-radius: 1.5vw;
+    border-style: none;
+}
+
+button:focus{
+    outline: 0;
+}

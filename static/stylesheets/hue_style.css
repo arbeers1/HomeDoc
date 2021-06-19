@@ -1,0 +1,87 @@
+.main_container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.back{
+    font-family: 'holo';
+    font-size: 10vw;
+}
+
+.nav_bar{
+    margin-top: 1%;
+    width: 100%;
+}
+
+#title{
+    display: inline-block;
+    color: black;
+    margin-left: 37vw;
+    font-size: 5vw;
+}
+
+#back{
+    font-family: 'holo';
+    font-size: 3vw;
+    border-radius: .5vw;
+    margin-left: 1vw;
+    height: 5vw;
+    width: 5vw;
+}
+
+#button_container{
+    margin-top: 7vh;
+    height: 82%;
+    overflow-y: auto;
+}
+
+.lights{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80vw;
+    height: 15vh;
+}
+
+.light_info{
+    width: 80vw;
+    height: 0vh;
+    margin-bottom: 2vh;
+    margin-left: auto;
+    margin-right: auto;
+    transition: height 500ms;
+    border-radius: 2vw;
+    box-shadow: .3vw .3vw .5vw rgba(0, 0, 0, 0.8);
+}
+
+.power_container{
+    width: 100%;
+}
+
+.power{
+    font-family: 'holo';
+    font-size: 10vw;
+    visibility: hidden;
+    height: 0px;
+    margin-top: 15px;
+    margin-right: 30px;
+    float: right;
+}
+
+.chooser{
+    width: 70%;
+    height: 18vh;
+    visibility: hidden;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.slider{
+    margin-left: 15px;
+    width: 97%;
+    margin-top: 3vh;
+    visibility: hidden; 
+}

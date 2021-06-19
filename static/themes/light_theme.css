@@ -1,0 +1,21 @@
+p{
+    color: #f3f6f9;
+}
+
+button{
+    box-shadow: .3vw .3vw .5vw rgba(0, 0, 0, 0.8);
+    color: rgba(58,62,65,255);
+    background-color: white;
+}
+
+button:active{
+    background-color: #e3e7f2;
+}
+
+.main_container{
+    background-image: linear-gradient(to top right, #e2e4f0, #fbfbfd);
+}
+
+.light_info{
+    background-color: #4f5660;
+}

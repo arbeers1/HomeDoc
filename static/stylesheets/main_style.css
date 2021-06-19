@@ -1,0 +1,105 @@
+#image{
+    background-image: url("../res/test.png");
+    position: fixed;
+    transform: scale(1.05);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+    background-size: cover;
+}
+
+.main_container{
+    background-image: none !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.info_container{
+    display: flex;
+    width: 35%;
+    height: 15vh;
+    margin-left: 6vw;
+}
+
+#time{
+    margin-right: 25px;
+}
+
+#temp{
+    font-size: 5.5vw;
+    margin-left: auto;
+    padding-top: 6vh;
+}
+
+.menu_container{
+    margin-top: 7.5vw;
+    height: 50%;
+    margin-top: 20vh;
+    display: flex;
+    justify-content: center;
+}
+
+.menu{ 
+    margin-right: 2vw;
+    height: 20vw;
+    width: 20vw;
+    transition: opacity 300ms;
+}
+
+.icons{
+    font-family: 'holo';
+    font-size: 10vw;
+}
+
+#sun{
+    color: #ffe469;
+}
+
+#weather{
+    color: #59d4ff;
+}
+
+#email{
+    color: #e43e2b;
+}
+
+#music{
+    color: #1ed760;
+}
+
+.nav_bar{
+    margin-top: 1%;
+    width: 100%;
+}
+
+.control{
+    opacity: 0;
+    font-family: 'holo';
+    font-size: 3vw;
+    border-radius: .5vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    height: 5vw;
+    width: 5vw;
+    transition: opacity 300ms;
+}
+
+#settings{
+    float: right;
+}
+
+#invisible_button{
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+
