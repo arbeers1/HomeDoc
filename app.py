@@ -21,3 +21,8 @@ def home():
 def lights():
     session["vis"] = 1
     return render_template('lights.html')
+
+@app.route("/weather")
+def weather():
+    session["vis"] = 1
+    return render_template('weather.html')
