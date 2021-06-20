@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/weather_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='themes/light_theme.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='res/favicon.ico') }}">
+    <script>
+        function swt(current){
+            if(current == "weekly"){
+                document.getElementById("hour_forecast").style.visibility = 'hidden';
+                document.getElementById("week_forecast").style.visibility = "visible";
+                document.getElementById("hour_selec").style.backgroundColor = "white";
+                document.getElementById("week_selec").style.backgroundColor = "#e3e7f2";
+            }else{
+                document.getElementById("week_forecast").style.visibility = 'hidden';
+                document.getElementById("hour_forecast").style.visibility = "visible";
+                document.getElementById("week_selec").style.backgroundColor = "white";
+                document.getElementById("hour_selec").style.backgroundColor = "#e3e7f2";
+            }
+        }
+    </script>
+</head>
+<div id = "main_container">
+    <div class = "nav_bar">
+        <button id="back" onclick = "location.href = location.href.replace('/weather', '');"></button>
+        <p id="title-weather">Weather</p>
+    </div>
+    <div id = "info_container">
+        <label class="conditions newl" id = "current">Sunny</label>
+        <label class="conditions">Baraboo </label>
+        <label class="conditions holo-weather"> </label>
+        <label class="conditions">85° </label>
+        <label class="conditions holo-weather"> </label>
+        <label class="conditions">60°</label>
+        <label class="conditions newl" id = "date">Sun, Jun 20</label>
+        <label id="temp">73°</label>
+    </div>
+    <div id="divider">
+        <button class="selector" id="hour_selec" onclick="swt('hourly')">Hourly</button>
+        <button class="selector" id="week_selec" onclick="swt('weekly')">Weekly</button>
+    </div>
+    <div id="forecast_container">
+        <div class="forecast" id="hour_forecast">
+            <p><span class="small">77°<br>Sunny</span><br>11 AM</p>
+            <p><span class="small">77°<br>Sunny</span><br>12 PM</p>
+            <p><span class="small">77°<br>Sunny</span><br>1 PM</p>
+            <p><span class="small">77°<br>Sunny</span><br>2 PM</p>
+            <p><span class="small">77°<br>Sunny</span><br>3 PM</p>
+            <p><span class="small">77°<br>Sunny</span><br>4 PM</p>
+            <p><span class="small">77°<br>Sunny</span><br>5 PM</p>
+            <p><span class="small">77°<br>Sunny</span><br>6 PM</p>
+            <p><span class="small">77°<br>Sunny</span><br>7 PM</p>
+            <p><span class="small">77°<br>Sunny</span><br>8 PM</p>
+            <p><span class="small">77°<br>Sunny</span><br>9 PM</p>
+            <p><span class="small">77°<br>Sunny</span><br>10 PM</p>
+        </div>
+        <div class="forecast" id="week_forecast">
+            <p class="week"><span class="small">77°<br>Sunny</span><br>Mon</p>
+            <p class="week"><span class="small">77°<br>Sunny</span><br>Tue</p>
+            <p class="week"><span class="small">77°<br>Sunny</span><br>Wed</p>
+            <p class="week"><span class="small">77°<br>Sunny</span><br>Thu</p>
+            <p class="week"><span class="small">77°<br>Sunny</span><br>Fri</p>
+            <p class="week"><span class="small">77°<br>Sunny</span><br>Sat</p>
+            <p class="week"><span class="small">77°<br>Sunny</span><br>Sun</p>
+        </div>
+    </div>
+</div>
