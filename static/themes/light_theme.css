@@ -19,3 +19,15 @@ button:active{
 .light_info{
     background-color: #4f5660;
 }
+
+#title-weather{
+    color: #f3f6f9;
+}
+
+.conditions{
+    color: #f3f6f9;
+}
+
+#temp{
+    color: #f3f6f9;
+}
