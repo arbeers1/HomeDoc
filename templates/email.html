@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/mail_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='themes/light_theme.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='res/favicon.ico') }}">
+    <script src="{{url_for('static', filename='scripts/mail_reader.js')}}"></script>
+</head>
+<div id="wrapper">
+    <div id="nav_container">
+        <div>
+            <button id="back" onclick = "location.href = location.href.replace('/email', '');"></button>
+            <p id="title">Email</p>
+        </div>
+        <div id="divider"></div>
+        <div id="preview">
+            <button id="1" class="em" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="2" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="3" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="4" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="5" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="6" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="7" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="8" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="9" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="10" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="11" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="12" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="13" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="14" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="15" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="16" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="17" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="18" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em" id="19" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+            <button class="em"  id="20" onclick="read_mail(this.id)">Alex Beers<br>Analysis<br>Here is the completed excel s...</button>
+        </div>
+    </div>
+    <div id="mail_container">
+        <div id="space"></div>
+        <h2 id="sender" class="mail">tyler1</h2>
+        <h3 id="subject" class="mail">lol</h3>
+        <p  id="message" class="mail">ur bad</p>
+    </div>
+</div>
