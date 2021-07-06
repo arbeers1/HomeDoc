@@ -8,22 +8,7 @@ import webbrowser
 import json
 import os
 
-class HTMLParse(HTMLParser):
-        """
-        A class to perform a simple parse on the HTML emails in Outlook
-        """
-        _final_string = ""
-
-        def handle_data(self, data):
-            self._final_string += data
-
-        @property
-        def result(self):
-            self._final_string = self._final_string.replace("\r", "")
-            self._final_string = self._final_string.replace("\n", "")
-            return self._final_string
-
-class outlook:
+class Outlook:
     """
     Read authenticated user emails
     """
@@ -66,20 +51,12 @@ class outlook:
             sender_address = email["sender"]["emailAddress"]["address"]
             subject = email["subject"]
             preview = email["bodyPreview"]
-            preview = preview.replace("\r", "")
-            preview = preview.replace("\n", "")
             message = email["body"]["content"]
-
-            #Converts HTML email to a basic text format.
-            #Note: It likely will not appear directly as the HTML may dictate
-            parser = HTMLParse()
-            parser.feed(message)
-            message = parser.result
 
             list.append((sender_name, sender_address, subject, preview, message))
         return list 
 
-class outlookAuth:
+class OutlookAuth:
     """
     Authentications service for email use.
     Use to obtain authentication or refresh access.
