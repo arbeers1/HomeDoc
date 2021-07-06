@@ -9,6 +9,7 @@ function populate_buttons(num){
             var element = document.getElementById("button_container");
             var button = document.createElement("button");
             button.innerHTML = 'Button '+i;
+            button.id = i + 'b';
             element.appendChild(button);
             button.className = "lights";
             button.addEventListener ("click", function() {
@@ -29,7 +30,9 @@ function populate_buttons(num){
             //Light dialogue
             var chooser = document.createElement("input");
             chooser.type = "color";
-            chooser.className = "chooser"
+            chooser.className = "chooser";
+            chooser.id = i;
+            chooser.addEventListener("input", function(){set_color(chooser);});
 
             //Power button
             var power = document.createElement("label");
@@ -40,7 +43,6 @@ function populate_buttons(num){
                 if(power.style.color == "rgb(240, 27, 36)"){
                     power.style.color = "#3ab64a";
                 }else{
-                    console.log(power.style.color);
                     power.style.color = "#f01b24";
                 }
             });
@@ -75,4 +77,8 @@ function populate_buttons(num){
             bri_container.appendChild(slider);
         })();
     }
+}
+
+function set_color(chooser){
+    document.getElementById(chooser.id + 'b').style = "background-color: " + chooser.value;
 }
