@@ -6,11 +6,6 @@
     right: 0;
 }
 
-.back{
-    font-family: 'holo';
-    font-size: 10vw;
-}
-
 .nav_bar{
     margin-top: 1%;
     width: 100%;
@@ -21,15 +16,6 @@
     color: black;
     margin-left: 37vw;
     font-size: 5vw;
-}
-
-#back{
-    font-family: 'holo';
-    font-size: 3vw;
-    border-radius: .5vw;
-    margin-left: 1vw;
-    height: 5vw;
-    width: 5vw;
 }
 
 #button_container{

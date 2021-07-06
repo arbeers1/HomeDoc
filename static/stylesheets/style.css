@@ -17,6 +17,14 @@ p{
     margin-bottom: auto;
 }
 
+h1{
+    font-family: 'Product Sans';
+}
+
+h3{
+    font-family: 'Product Sans';
+}
+
 button{
     font-family: 'Product Sans';
     font-size: 2vw;
@@ -26,4 +34,14 @@ button{
 
 button:focus{
     outline: 0;
+}
+
+#back{
+    position: relative;
+    font-family: 'holo';
+    font-size: 3vw;
+    border-radius: .5vw;
+    margin-left: 1vw;
+    height: 5vw;
+    width: 5vw;
 }

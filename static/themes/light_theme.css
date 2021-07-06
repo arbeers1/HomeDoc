@@ -31,3 +31,8 @@ button:active{
 #temp{
     color: #f3f6f9;
 }
+
+.mail{
+    font-family: "Calibri";
+    color: black;
+}
