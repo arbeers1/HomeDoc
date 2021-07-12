@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/light_theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/spotify_style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='res/favicon.ico') }}">
+    <script src="{{url_for('static', filename='scripts/player.js')}}"></script>
+</head>
+<body onload="populate_playlists(5)">
+    <div id="wrapper">
+        <div class = "nav_bar">
+            <button id="back" onclick = "location.href = location.href.replace('/spotify', '');"></button>
+            <p id="title">Spotify</p>
+        </div>
+        <div id="divider_vert"></div>
+        <div id="inner_wrapper">
+            <div id="navigation">
+                <button id="song_back" class="selection" onclick="back()"></button>
+                <p id="inner_title">Playlists</p>
+            </div>
+            <div id="divider_hor"></div>
+            <div id="controls">
+                <div class="dropdown">
+                    <button onclick="set_device()" id="drop" class="selection"></button>
+                    <div id="drop_menu">
+                    <button class="device" onclick="set_device(1)">Default Device</button>
+                    <button class="device" onclick="set_device(2)">No Device</button>
+                    <button class="device" onclick="set_device(3)">No Device</button>
+                    </div>
+                </div>
+                <h1 class="current">Ice Water</h1>
+                <p id ="artist" class="current">Lil Skies ft. Trippie Red</p>
+                <div id="buttons">
+                    <button id="backwards" class="selection"></button>
+                    <button id="play" class="selection" onclick="set_control();"></button>
+                    <button id="forwards" class="selection"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
