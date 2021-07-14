@@ -2,7 +2,7 @@
 #Description: Responsible for retrieving weather, time, date
 
 import requests
-import datetime as datetime
+from datetime import datetime
 
 #URl for getting temp, conditions
 weather_url_city = "http://api.openweathermap.org/data/2.5/weather?q={}&appid=1d5625b036b3668f000b321a50a3f82a&units=imperial"
@@ -13,14 +13,6 @@ def date():
     """Return date formated 'Mon, June 01'"""
     current_time = datetime.now()
     return current_time.strftime("%a, %b %d") 
-
-def time():
-    """Return time formated 'hh:mm'"""
-    current_time = datetime.now()
-    hour = current_time.strftime("%I")
-    hour = hour.lstrip("0")
-    hour += ":" + current_time.strftime("%M")
-    return hour
 
 def next_days():
     """Return the days of the week such that today is at index 0 followed by the rest in order"""
