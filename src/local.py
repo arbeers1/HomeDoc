@@ -14,6 +14,14 @@ def date():
     current_time = datetime.now()
     return current_time.strftime("%a, %b %d") 
 
+def time():
+    """Return time formated 'hh:mm'"""
+    current_time = datetime.now()
+    hour = current_time.strftime("%I")
+    hour = hour.lstrip("0")
+    hour += ":" + current_time.strftime("%M")
+    return hour
+
 def next_days():
     """Return the days of the week such that today is at index 0 followed by the rest in order"""
     days_ordered = ("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
