@@ -5,6 +5,7 @@ const date = new Date();
 function update_home(){
     interval = 0;
     setInterval(function(){ 
+        $("#time").text(date.getHours() + ":" + date.getMinutes());
 
         //Get temperature every 60 seconds
         if(interval == 60000){
