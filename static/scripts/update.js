@@ -1,11 +1,11 @@
-const date = new Date();
 /**
  * Updates elements on the home page.
  */
 function update_home(){
     interval = 0;
     setInterval(function(){ 
-        $("#time").text(date.getHours() + ":" + date.getMinutes());
+        let date = new Date();
+        $("#time").text(date.getHours() + ":" + (date.getMinutes()<10?'0':'') + date.getMinutes());
 
         //Get temperature every 60 seconds
         if(interval == 60000){
