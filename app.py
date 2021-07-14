@@ -1,5 +1,5 @@
 from flask import Flask, session, render_template, jsonify, request
-from src.local import time, temp_conditions
+from src.local import temp_conditions
 from src.configurator import configurator
 import os
 
@@ -19,7 +19,7 @@ def home():
     else:
         val = session.get("vis", None)
         val2 = "none"
-    return render_template('index.html', vis = val, pointer = val2, time=time(), weather=str(temp) + "°")
+    return render_template('index.html', vis = val, pointer = val2, weather=str(temp) + "°")
 
 @app.route("/lights")
 def lights():
@@ -43,8 +43,5 @@ def spotify():
 
 @app.route('/update_home', methods = ['GET'])
 def update():
-    if(request.args.get('weather', 0, type=bool)):
-        temp = temp_conditions(config.city)[0]
-        return jsonify(time=time(), weather=temp)
-    else:
-        return jsonify(time=time(), weather=None)
+    temp = temp_conditions(config.city)[0]
+    return jsonify(weather=temp)
