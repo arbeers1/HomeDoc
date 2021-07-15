@@ -42,12 +42,12 @@ def temp_conditions(city):
     city - the city to search
 
     Returns:
-    tuple formated(temp, current conditions)
+    tuple formated(temp, current conditions, min, max)
     """
     url = weather_url_city.format(city)
     result = requests.get(url)
     data = result.json()
-    return(int(round(data["main"]["temp"])), data["weather"][0]["description"])
+    return(round(data["main"]["temp"]), data["weather"][0]["description"], round(data["main"]["temp_min"]), round(data["main"]["temp_max"]))
 
 def lat_lon(city):
     """
@@ -81,7 +81,7 @@ def weekly_forecast(lat, lon):
     list = data["daily"]
     final = []
     for x in range(7):
-        daily_forecast = (int(round(list[x]["temp"]["max"])), int(round(list[x]["temp"]["min"])), list[x]["weather"][0]["description"])
+        daily_forecast = (str(round(list[x]["temp"]["max"])) + "°", str(round(list[x]["temp"]["min"])) + "°", list[x]["weather"][0]["description"])
         final.append(daily_forecast)
     return final
 
@@ -94,14 +94,42 @@ def hourly_forecast(lat, lon):
     lon - longitude of area to search
 
     Returns
-    list formatted(hour1, hour2, ...) where each hour is (temp, conditions)
+    list formatted(hour1, hour2, ...) where each hour is (temp, conditions, hour)
     """
     url = weather_url_call.format(lat, lon)
     result = requests.get(url)
     data = result.json()
     list = data["hourly"]
+    hours = hour_help()
     final = []
     for x in range(12):
-        hourly_forecast = (int(round(list[x]["temp"])), list[x]["weather"][0]["description"])
+        hourly_forecast = (str(round(list[x]["temp"])) + "°", list[x]["weather"][0]["description"], hours[x])
         final.append(hourly_forecast)
     return final
+
+def hour_help():
+    """
+    Helper method which gets the next 12 hours formatted 'hPm/Am'
+
+    Returns
+    [hour1, hour2, ...] for a total of 12 hours.
+    """
+    hours = []
+    current_time = datetime.now()
+    time = current_time.strftime("%I")
+    time = int(time)
+    ending = current_time.strftime("%p")
+
+    for x in range(12):
+        if(time == 12 and ending == "AM"):
+            ending = "PM"
+        elif(time == 12):
+            ending = "AM"
+
+        if(time > 12):
+            hours.append(str(time - 12) + ending)
+        else:
+            hours.append(str(time) + ending)
+        time += 1
+    hours[0] = "Now"
+    return hours
