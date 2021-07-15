@@ -1,5 +1,6 @@
+from threading import Condition
 from flask import Flask, session, render_template, jsonify, request
-from src.local import temp_conditions
+from src.local import *
 from src.configurator import configurator
 import os
 
@@ -19,7 +20,7 @@ def home():
     else:
         val = session.get("vis", None)
         val2 = "none"
-    return render_template('index.html', vis = val, pointer = val2, weather=str(temp) + "°")
+    return render_template('index.html', vis = val, pointer = val2, time=time(), weather=str(temp) + "°")
 
 @app.route("/lights")
 def lights():
@@ -29,7 +30,23 @@ def lights():
 @app.route("/weather")
 def weather():
     session["vis"] = 1
-    return render_template('weather.html')
+    tc = temp_conditions(config.city) #temp/conditions
+    days = next_days() #next 7 days
+    ll = lat_lon(config.city) #lat/lon (required for weekly forecast)
+    week_f = weekly_forecast(ll[0], ll[1])
+    hour_f = hourly_forecast(ll[0], ll[1])
+    return render_template(
+        'weather.html',
+        date = date(), 
+        temp = str(tc[0]) + "°", 
+        min = str(tc[2]) + "°",
+        max = str(tc[3]) + "°",
+        conditions = tc[1].capitalize(), 
+        city = config.city.capitalize(),
+        d = days,
+        wf = week_f,
+        hf = hour_f
+        )
 
 @app.route("/email")
 def email():
