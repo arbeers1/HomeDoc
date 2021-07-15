@@ -94,7 +94,6 @@
 }
 
 #week_forecast{
-    justify-content: center;
     visibility: hidden;
     margin-top: -54vh
 }
