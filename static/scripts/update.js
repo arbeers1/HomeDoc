@@ -18,3 +18,17 @@ function update_home(){
         interval++;
     }, 1000); 
 }
+
+if(location.href != "/" && location.href != "/invis"){
+    window.addEventListener("load", timeout, true);
+    document.onmouseout = function(){
+        timeout();
+    }
+}
+
+function timeout(){
+    clearTimeout(time);
+    var time = setTimeout(function(){ 
+        location.href = '/invis';
+    }, 300000);
+}
