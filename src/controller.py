@@ -135,6 +135,18 @@ def set_light_color(self, id, color):
     response = requests.put(final_url, json_to_send)
     return response;
 
+def set_bri(self, id, bri):
+    """
+    Sends a put request to modify light brightness.
+
+    Paramaters:
+    id - Number if of a light to modify
+    bri - brightness value between 1 and 100
+    """
+    final_url = _base_url + "/" + str(id) + "/state"
+    json_to_send = "{\"bri\":" + str(bri / 100 * 255) + "}"
+    requests.put(final_url, json_to_send)
+
 def _calculate_xy_coordinates(color):
     """
     Helper method to calculate the xy color gamut point
