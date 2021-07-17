@@ -1,0 +1,42 @@
+p{
+    color: #f3f6f9;
+}
+
+button{
+    box-shadow: .3vw .3vw .5vw rgba(0, 0, 0, 0.8);
+    color: #f3f6f9;
+    background-color: #373737;
+}
+
+button:active{
+    background-color: #474747;
+}
+
+.main_container{
+    background-image: linear-gradient(to top right, #272727, #303030);
+}
+
+.light_info{
+    background-color: #4f5660;
+}
+
+#title-weather{
+    color: #f3f6f9;
+}
+
+#title{
+    color: #f3f6f9;
+}
+
+.conditions{
+    color: #f3f6f9;
+}
+
+#temp{
+    color: #f3f6f9;
+}
+
+.mail{
+    font-family: "Calibri";
+    color: black;
+}
