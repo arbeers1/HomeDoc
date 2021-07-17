@@ -5,7 +5,7 @@ function update_home(){
     interval = 0;
     setInterval(function(){ 
         let date = new Date();
-        $("#time").text(date.getHours() + ":" + (date.getMinutes()<10?'0':'') + date.getMinutes());
+        $("#time").text((date.getHours()>12?date.getHours()-12:date.getHours()) + ":" + (date.getMinutes()<10?'0':'') + date.getMinutes());
 
         //Get temperature every 60 seconds
         if(interval == 60000){
