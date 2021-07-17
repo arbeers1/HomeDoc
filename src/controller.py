@@ -99,26 +99,7 @@ class Triangle():
             return xy3
 
 #url to access hue bridge on local network
-_base_url = "http://192.168.0.100/api/dQ8uv5kgFtCvVDdCUensB9HgujFEeXQyFb7M80Lu/lights"
-
-def get_light_data():
-    """
-    Returns Json data for all lights.
-    
-    Returns:
-    List formatted [(light1_id, light1_name, light1_on, [r,g,b], bri), (light2_...)]
-    """
-    data = requests.get(_base_url)
-    js = json.loads(data.text)
-    list = []
-    for i in js:
-        id = i
-        name = js[i]["name"]
-        on = js[i]["state"]["on"]
-        rgb = xy_to_rgb(js[i]["state"]["xy"][0], js[i]["state"]["xy"][1], js[i]["state"]["bri"]) 
-        bri = js[i]["state"]["bri"]
-        list.append((id, name, on, rgb, bri))
-    return list
+_base_url = "http://192.168.0.102/api/dQ8uv5kgFtCvVDdCUensB9HgujFEeXQyFb7M80Lu/lights"
 
 def set_light_state(id, state):
     """
@@ -199,11 +180,11 @@ def xy_to_rgb(x, y, bri):
     bri - the current brightness of the light
 
     Returns:
-    [r, g, b]
+    (r, g, b)
     """
     #Init vars
     z = 1 - x- y
-    Y = bri / 255
+    Y = bri
     X = (Y/y) * x
     Z = (Y/y) * z
 
@@ -211,14 +192,63 @@ def xy_to_rgb(x, y, bri):
     r =  X * 1.656492 - Y * 0.354851 - Z * 0.255038
     g = -X * 0.707196 + Y * 1.655397 + Z * 0.036152
     b =  X * 0.051713 - Y * 0.121364 + Z * 1.011530
-    rgb = [r, g, b]
+
+    if (r > b and r > g and r > 1):
+        # red is too big
+        g = g / r
+        b = b / r
+        r = 1
+    elif (g > b and g > r and g > 1):
+        #green is too big
+        r = r / g
+        b = b / g
+        g = 1
+    elif (b > r and b > g and b > 1):
+        #blue is too big
+        r = r / b
+        g = g / b
+        b = 1
+
     #Reverse gamma correction
-    for i, s in enumerate(rgb):
-        if(s <= 0.0031308):
-            s = 12.92 * s
-        else:
-            s = (1.0 + 0.055) * pow(s, (1.0 / 2.4)) - 0.055
-        s = s * 255
-        rgb[i] = math.trunc(s)
+    r = 12.92 * r if r <= .0031308 else 1.055 * pow(r, (1/2.4)) - .055
+    g = 12.92 * g if g <= .0031308 else 1.055 * pow(g, (1/2.4)) - .055
+    b = 12.92 * b if b <= .0031308 else 1.055 * pow(b, (1/2.4)) - .055
+
+    if (r > b and r > g and r > 1):
+        # red is too big
+        g = g / r
+        b = b / r
+        r = 1
+    elif (g > b and g > r and g > 1):
+        #green is too big
+        r = r / g
+        b = b / g
+        g = 1
+    elif (b > r and b > g and b > 1):
+        #blue is too big
+        r = r / b
+        g = g / b
+        b = 1
     
-    return rgb
+    return (int(r * 255), int(g * 255), int(b * 255))
+
+def get_light_data():
+    """
+    Returns Json data for all lights.
+    
+    Returns:
+    List formatted [[light1_id, light1_name, light1_on, hex, bri], [light2_...]]
+    """
+    data = requests.get(_base_url)
+    js = json.loads(data.text)
+    list = []
+    for i in js:
+        final = []
+        final.append(i)
+        final.append(js[i]["name"])
+        final.append(js[i]["state"]["on"])
+        rgb = xy_to_rgb(js[i]["state"]["xy"][0], js[i]["state"]["xy"][1], js[i]["state"]["bri"])
+        final.append('#%02x%02x%02x' % rgb)
+        final.append(js[i]["state"]["bri"])
+        list.append(final)
+    return list
